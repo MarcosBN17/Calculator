@@ -41,4 +41,15 @@ document.addEventListener('DOMContentLoaded', function() {
     //Append wrapper to body
     document.body.appendChild(wrapper);
 
+
+
+    //Footer
+    const footerContainer = document.createElement('div');
+    footerContainer.classList.add('footer-container');
+    const footerText = document.createElement('p');
+    footerText.textContent = 'Developed by Marcos Neves | Copyright © 2024';
+    footerContainer.appendChild(footerText);
+
+    document.body.appendChild(footerContainer);
+
 });

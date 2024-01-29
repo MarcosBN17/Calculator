@@ -48,3 +48,15 @@
 #calcbody button:active {
     background-color: #ccc;
 }
+
+
+.footer-container {
+    position: absolute;
+    bottom: 0;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    margin-bottom: auto;
+    
+}
