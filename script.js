@@ -22,12 +22,26 @@ document.addEventListener('DOMContentLoaded', function() {
         '7', '8', '9', '/',
         '4', '5', '6', '*',
         '1', '2', '3', '-',
-        '0', '.', '=', '+'
+        '0', '.', '=', '+',
+        'C'
     ];
 
     buttons.forEach(buttonValue => {
         const button = document.createElement('button');
         button.textContent = buttonValue;
+        button.addEventListener('click', function() {
+            if (buttonValue === '=') {
+                display.textContent = eval(display.textContent);
+            } else if (buttonValue === 'C') {
+                display.textContent = '0';
+            } else {
+                if (display.textContent === '0') {
+                    display.textContent = buttonValue;
+                } else {
+                    display.textContent += buttonValue;
+                }
+            }
+        });
         calculatorbody.appendChild(button);
     });
 
