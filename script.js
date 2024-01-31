@@ -26,24 +26,70 @@ document.addEventListener('DOMContentLoaded', function() {
         'C'
     ];
 
+    let expression = '';
+
     buttons.forEach(buttonValue => {
         const button = document.createElement('button');
         button.textContent = buttonValue;
         button.addEventListener('click', function() {
             if (buttonValue === '=') {
-                display.textContent = eval(display.textContent);
+                display.textContent = evaluateExpression(expression);
+                expression = '';
             } else if (buttonValue === 'C') {
                 display.textContent = '0';
+                expression = '';
             } else {
                 if (display.textContent === '0') {
                     display.textContent = buttonValue;
                 } else {
                     display.textContent += buttonValue;
                 }
+                expression += buttonValue;
             }
         });
         calculatorbody.appendChild(button);
     });
+
+    function evaluateExpression(expression) {
+        try {
+            const result = calculate(expression);
+            return result;
+        } catch (error) {
+            return 'Error'; // Handle error gracefully
+        }
+    }
+
+    // Function to perform the calculation
+    function calculate(expression) {
+        const operators = ['+', '-', '*', '/'];
+        const values = expression.split(/(\+|\-|\*|\/)/g);
+        let result = parseFloat(values[0]);
+
+        for (let i = 1; i < values.length; i += 2) {
+            const operator = values[i];
+            const nextValue = parseFloat(values[i + 1]);
+
+            if (isNaN(nextValue)) {
+                throw 'Invalid expression';
+            }
+
+            if (operator === '+') {
+                result += nextValue;
+            } else if (operator === '-') {
+                result -= nextValue;
+            } else if (operator === '*') {
+                result *= nextValue;
+            } else if (operator === '/') {
+                if (nextValue === 0) {
+                    throw 'Division by zero';
+                }
+                result /= nextValue;
+            }
+        }
+
+        return result;
+    }
+
 
     //Append display & calculator body to container
     container.appendChild(display);
